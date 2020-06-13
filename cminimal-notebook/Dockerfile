@@ -115,6 +115,6 @@ RUN cd /tmp/texlive &&\
     ucs \
     enumitem &&\
     rm -rf /tmp/texlive && \
-    rm -rf /home/jovyan/.wget-hsts
+    rm -rf /home/$NB_USER/.wget-hsts
 
 USER $NB_UID
