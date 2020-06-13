@@ -114,6 +114,7 @@ RUN cd /tmp/texlive &&\
     titling \
     ucs \
     enumitem &&\
-    rm -rf /tmp/texlive
+    rm -rf /tmp/texlive && \
+    rm -rf /home/jovyan/.wget-hsts
 
 USER $NB_UID
