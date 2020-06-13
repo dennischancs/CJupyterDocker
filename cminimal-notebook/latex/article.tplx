@@ -1,0 +1,20 @@
+
+((=- Default to the notebook output style -=))
+((*- if not cell_style is defined -*))
+    ((* set cell_style = 'style_jupyter.tplx' *))
+((*- endif -*))
+
+((=- Inherit from the specified cell style. -=))
+((* extends cell_style *))
+
+
+%===============================================================================
+% Latex Article
+%===============================================================================
+
+((*- block docclass -*))
+\documentclass[11pt]{article}
+\usepackage{fontspec, xunicode, xltxtra}
+\setmainfont{Microsoft YaHei}  % 以上两宏包，保证中文字体正常显示
+\usepackage{ctex}  % 中文宏包，支持中文自动换行
+((*- endblock docclass -*))
