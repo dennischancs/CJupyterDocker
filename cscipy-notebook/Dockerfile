@@ -7,10 +7,9 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 USER root
 
-# ffmpeg for matplotlib anim & dvipng for latex labels
+# ffmpeg for matplotlib anim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg && \
-    ln -fs /usr/local/texlive/*/bin/x86_64-linux/dvipng /usr/local/bin/dvipng && \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
