@@ -89,6 +89,7 @@ RUN fix-permissions /etc/jupyter/ && \
 # ---- nbconvert dependencies ----
 # install TexLive latest
 # COPY texlive /tmp/texlive
+ENV PATH=/usr/local/texlive/main/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
     wget -O texlive.profile https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/texlive/texlive.profile && \
     wget -O install-tl-unx.tar.gz https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
@@ -96,8 +97,9 @@ RUN cd /tmp &&\
     rm -rf install-tl-unx.tar.gz && \
     mv install-tl-* install && \
     ./install/install-tl --profile=texlive.profile --repository=https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/ && \
-    # create links
-    ln -fs $(find /usr/local/texlive/*/bin/x86_64-linux/* -executable) /usr/local/bin/ && \
+    # or create links, ENV method recommend
+    # ln -fs $(find /usr/local/texlive/main/bin/x86_64-linux/* -executable) /usr/local/bin/ && \
+    # add some tex macro for jupyter export
     tlmgr install \
     tcolorbox \
     environ \
@@ -107,11 +109,11 @@ RUN cd /tmp &&\
     upquote \
     titling \
     ucs \
-    enumitem &&\
+    enumitem && \
     rm -rf /tmp/* && \
     rm -rf /home/$NB_USER/.wget-hsts && \
     # delete texlive help & source file
-    rm -rf /usr/local/texlive/2020/texmf-dist/doc && \
-    rm -rf /usr/local/texlive/2020/texmf-dist/source
+    rm -rf /usr/local/texlive/main/texmf-dist/doc && \
+    rm -rf /usr/local/texlive/main/texmf-dist/source
 
 USER $NB_UID
