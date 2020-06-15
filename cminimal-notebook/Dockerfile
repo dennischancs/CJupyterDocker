@@ -5,18 +5,22 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="@dennischancs/CJupyterDocker"
 
+USER root
 # add `-u root` login jupyter
 COPY start.sh /usr/local/bin/
-
-USER $NB_UID
 # Copy local files as late as possible to avoid cache busting
 COPY jupyter_notebook_config.py /etc/jupyter/
-# jupyter export PDF use TexLive Chinese Templates
-# '--chown=' is losing portability 
-# COPY --chown=$NB_UID:$NB_GID latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-RUN fix-permissions $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
 
+# --- jupyter export PDF use TexLive Chinese Templates ----
+# '--chown=' is losing portability, hub.docker.com can success(Version: 19+), but cloud.tencent.com & cloud.aliyun.com may fail(Version: 17.06.1-ce)
+# for hub.docker.com
+COPY --chown=$NB_UID:$NB_GID latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# # for cloud.tencent.com & cloud.aliyun.com
+# COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# RUN fix-permissions $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# ---
+
+USER $NB_UID
 # change conda repository to tuna
 RUN conda config --system --prepend channels conda-forge && \
     conda config --system --set auto_update_conda false && \

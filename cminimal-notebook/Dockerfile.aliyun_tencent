@@ -14,10 +14,10 @@ COPY jupyter_notebook_config.py /etc/jupyter/
 # --- jupyter export PDF use TexLive Chinese Templates ----
 # '--chown=' is losing portability, hub.docker.com can success(Version: 19+), but cloud.tencent.com & cloud.aliyun.com may fail(Version: 17.06.1-ce)
 # for hub.docker.com
-COPY --chown=$NB_UID:$NB_GID latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-# # for cloud.tencent.com & cloud.aliyun.com
-# COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-# RUN fix-permissions $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# COPY --chown=$NB_UID:$NB_GID latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# for cloud.tencent.com & cloud.aliyun.com
+COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+RUN fix-permissions $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
 # ---
 
 USER $NB_UID
@@ -98,12 +98,12 @@ RUN fix-permissions /etc/jupyter/ && \
 # COPY texlive /tmp/texlive
 ENV PATH=/usr/local/texlive/main/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
-    wget -O texlive-mini.profile https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/texlive/texlive-mini.profile && \
+    wget -O texlive.profile https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/texlive/texlive.profile && \
     wget -O install-tl-unx.tar.gz https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
     tar -zxvf install-tl-unx.tar.gz && \
     rm -rf install-tl-unx.tar.gz && \
     mv install-tl-* install && \
-    ./install/install-tl --profile=texlive-mini.profile --repository=https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/ && \
+    ./install/install-tl --profile=texlive.profile --repository=https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/ && \
     # or create links, ENV method recommend
     # ln -fs $(find /usr/local/texlive/main/bin/x86_64-linux/* -executable) /usr/local/bin/ && \
     # add some tex macro for jupyter export
