@@ -20,8 +20,8 @@ else
     echo 'TEXMFHOME /opt/TinyTeX/texmf-home' >> tinytex.profile
     echo 'TEXMFVAR /opt/TinyTeX/texmf-var' >> tinytex.profile
   else
-    mkdir -p /opt/bin
-    echo "tlpdbopt_sys_bin /opt/bin" >> tinytex.profile
+    mkdir -p /opt/TinyTeX/bin
+    echo "tlpdbopt_sys_bin /opt/TinyTeX/bin" >> tinytex.profile
   fi
 fi
 
