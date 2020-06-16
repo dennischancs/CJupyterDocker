@@ -113,7 +113,15 @@ RUN cd /tmp &&\
     pgf \
     eurosym \
     ulem \
-    jknapltx && \
+    jknapltx \
+    euenc \
+    fontspec \
+    iftex \
+    tipa \
+    xunicode \
+    xltxtra \
+    metalogo \
+    realscripts && \
     rm -rf /tmp/*
 
 USER $NB_UID
