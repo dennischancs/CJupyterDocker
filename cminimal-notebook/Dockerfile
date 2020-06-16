@@ -95,9 +95,9 @@ RUN fix-permissions /etc/jupyter/ && \
 
 # ---- nbconvert dependencies ----
 # install TinyTeX
-ENV PATH=/root/.TinyTeX/bin/x86_64-linux:$PATH
+ENV PATH=/opt/TinyTeX/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
-    wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh && \
+    wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh && \
     tlmgr install \
     tcolorbox \
     environ \
