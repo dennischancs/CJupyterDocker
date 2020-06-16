@@ -94,19 +94,10 @@ RUN fix-permissions /etc/jupyter/ && \
     fc-cache -fv
 
 # ---- nbconvert dependencies ----
-# install TexLive latest
-# COPY texlive /tmp/texlive
-ENV PATH=/usr/local/texlive/main/bin/x86_64-linux:$PATH
+# install TinyTeX
+ENV PATH=/root/.TinyTeX/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
-    wget -O texlive.profile https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/texlive/texlive.profile && \
-    wget -O install-tl-unx.tar.gz https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/install-tl-unx.tar.gz && \
-    tar -zxvf install-tl-unx.tar.gz && \
-    rm -rf install-tl-unx.tar.gz && \
-    mv install-tl-* install && \
-    ./install/install-tl --profile=texlive.profile --repository=https://mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/tlnet/ && \
-    # or create links, ENV method recommend
-    # ln -fs $(find /usr/local/texlive/main/bin/x86_64-linux/* -executable) /usr/local/bin/ && \
-    # add some tex macro for jupyter export
+    wget -qO- "https://yihui.org/gh/tinytex/tools/install-unx.sh" | sh && \
     tlmgr install \
     tcolorbox \
     environ \
@@ -116,11 +107,13 @@ RUN cd /tmp &&\
     upquote \
     titling \
     ucs \
-    enumitem && \
-    rm -rf /tmp/* && \
-    rm -rf /home/$NB_USER/.wget-hsts && \
-    # delete texlive help & source file
-    rm -rf /usr/local/texlive/main/texmf-dist/doc && \
-    rm -rf /usr/local/texlive/main/texmf-dist/source
+    enumitem \
+    parskip \
+    caption \
+    pgf \
+    eurosym \
+    ulem \
+    jknapltx && \
+    rm -rf /tmp/*
 
 USER $NB_UID
