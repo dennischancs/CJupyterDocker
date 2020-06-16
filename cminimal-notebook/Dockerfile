@@ -121,7 +121,15 @@ RUN cd /tmp &&\
     xunicode \
     xltxtra \
     metalogo \
-    realscripts && \
+    realscripts \
+    ctex \
+    float \
+    fancyvrb \
+    grffile \
+    booktabs \
+    esint \
+    rsfs \
+    bibtex && \
     rm -rf /tmp/*
 
 USER $NB_UID

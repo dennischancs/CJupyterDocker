@@ -10,7 +10,7 @@ else
   alias download='wget -qO-'
 fi
 
-download https://yihui.org/gh/tinytex/tools/install-base.sh | sh -s - "$@"
+download https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-base.sh | sh -s - "$@"
 
 rm -rf $TEXDIR
 mkdir -p $TEXDIR

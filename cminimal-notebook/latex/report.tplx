@@ -20,7 +20,7 @@
 ((* block docclass *))
 \documentclass{report}
 \usepackage{fontspec, xunicode, xltxtra}
-\setmainfont{Microsoft YaHei}  % 以上两宏包，保证中文字体正常显示
+\setmainfont{Source Han Sans}  % 以上两宏包，保证中文字体正常显示
 \usepackage{ctex}  % 中文宏包，支持中文自动换行
 ((* endblock docclass *))
 
