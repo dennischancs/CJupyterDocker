@@ -14,8 +14,9 @@ override this.-=))
     ((* block docclass *))
     \documentclass[11pt]{article}
     \usepackage{fontspec, xunicode, xltxtra}
-    \setmainfont{Source Han Sans}  % 以上两宏包，保证中文字体正常显示
     \usepackage{ctex}  % 中文宏包，支持中文自动换行
+    \setmainfont{Source Han Sans} % 全局英文字体
+    \setCJKmainfont{Source Han Sans} % 全局中文字体
     ((* endblock docclass *))
 
     ((* block packages *))
