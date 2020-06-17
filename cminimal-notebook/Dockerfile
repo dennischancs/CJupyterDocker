@@ -12,12 +12,9 @@ COPY start.sh /usr/local/bin/
 COPY jupyter_notebook_config.py /etc/jupyter/
 
 # --- jupyter export PDF use TexLive Chinese Templates ----
-# '--chown=' is losing portability, hub.docker.com can success(Version: 19+), but cloud.tencent.com & cloud.aliyun.com may fail(Version: 17.06.1-ce)
-# for hub.docker.com
-COPY --chown=$NB_UID:$NB_GID latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-# # for cloud.tencent.com & cloud.aliyun.com
-# COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
-# RUN fix-permissions $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+# 'COPY --chown=' is losing portability, hub.docker.com can success(Version: 19+), but cloud.tencent.com & cloud.aliyun.com may fail(Version: 17.06.1-ce)
+COPY latex $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
+RUN chown -R $NB_UID:$NB_GID $CONDA_DIR/lib/python3.7/site-packages/nbconvert/templates/latex
 # ---
 
 USER $NB_UID
@@ -99,7 +96,8 @@ RUN fix-permissions /etc/jupyter/ && \
 # ENV PATH=/opt/TinyTeX/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
     wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh -s - "--admin" && \
-    rm -rf /tmp/* & \
+    chown -R $NB_UID:$NB_GID /opt/TinyTeX && \
+    rm -rf /tmp/* && \
     rm -rf /home/jovyan/.wget-hsts
 
 USER $NB_UID
