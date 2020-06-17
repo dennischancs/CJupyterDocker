@@ -4,7 +4,7 @@ rm -f install-tl-unx.tar.gz tinytex.profile
 echo "Downloading install-tl-unx.tar.gz to ${PWD} ..."
 TLREPO=${CTAN_REPO:-http://mirror.ctan.org/systems/texlive/tlnet}
 TLURL="${TLREPO}/install-tl-unx.tar.gz"
-PRURL="https://yihui.org/gh/tinytex/tools/tinytex.profile"
+PRURL="https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/tinytex.profile"
 if [ $(uname) = 'Darwin' ]; then
   curl -LO $TLURL
   curl -LO $PRURL
@@ -20,8 +20,8 @@ else
     echo 'TEXMFHOME /opt/TinyTeX/texmf-home' >> tinytex.profile
     echo 'TEXMFVAR /opt/TinyTeX/texmf-var' >> tinytex.profile
   else
-    mkdir -p /opt/TinyTeX/bin
-    echo "tlpdbopt_sys_bin /opt/TinyTeX/bin" >> tinytex.profile
+    mkdir -p $HOME/bin
+    echo "tlpdbopt_sys_bin ${HOME}/bin" >> tinytex.profile
   fi
 fi
 
