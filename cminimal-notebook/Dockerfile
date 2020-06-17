@@ -98,7 +98,7 @@ RUN fix-permissions /etc/jupyter/ && \
 # ask `tlmgr path add` to add binaries to default /usr/local/b with the argument '--admin'
 # ENV PATH=/opt/TinyTeX/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
-    wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh --admin && \
+    wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh -s - "--admin" && \
     rm -rf /tmp/* & \
     rm -rf /home/jovyan/.wget-hsts
 
