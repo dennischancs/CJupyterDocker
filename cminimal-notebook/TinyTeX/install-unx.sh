@@ -17,7 +17,7 @@ mkdir -p $TEXDIR
 mv texlive/* $TEXDIR
 rm -r texlive
 
-$TEXDIR/bin/*/tlmgr install $(download https://yihui.org/gh/tinytex/tools/pkgs-custom.txt | tr '\n' ' ')
+$TEXDIR/bin/*/tlmgr install $(download https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/pkgs-custom.txt | tr '\n' ' ')
 
 if [ "$1" = '--admin' ]; then
   if [ "$2" != '--no-path' ]; then

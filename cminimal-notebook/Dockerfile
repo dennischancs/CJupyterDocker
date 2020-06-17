@@ -94,42 +94,11 @@ RUN fix-permissions /etc/jupyter/ && \
     fc-cache -fv
 
 # ---- nbconvert dependencies ----
-# install TinyTeX
-ENV PATH=/opt/TinyTeX/bin/x86_64-linux:$PATH
+# install TinyTeX 2020
+# ask `tlmgr path add` to add binaries to default /usr/local/b with the argument '--admin'
+# ENV PATH=/opt/TinyTeX/bin/x86_64-linux:$PATH
 RUN cd /tmp &&\
-    wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh && \
-    tlmgr install \
-    tcolorbox \
-    environ \
-    trimspaces \
-    adjustbox \
-    collectbox \
-    upquote \
-    titling \
-    ucs \
-    enumitem \
-    parskip \
-    caption \
-    pgf \
-    eurosym \
-    ulem \
-    jknapltx \
-    euenc \
-    fontspec \
-    iftex \
-    tipa \
-    xunicode \
-    xltxtra \
-    metalogo \
-    realscripts \
-    ctex \
-    float \
-    fancyvrb \
-    grffile \
-    booktabs \
-    esint \
-    rsfs \
-    bibtex && \
+    wget -qO- "https://gitee.com/dennischan/CJupyterDocker/raw/master/cminimal-notebook/TinyTeX/install-unx.sh" | sh --admin && \
     rm -rf /tmp/* & \
     rm -rf /home/jovyan/.wget-hsts
 
