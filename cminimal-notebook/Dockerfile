@@ -130,6 +130,7 @@ RUN cd /tmp &&\
     esint \
     rsfs \
     bibtex && \
-    rm -rf /tmp/*
+    rm -rf /tmp/* & \
+    rm -rf /home/jovyan/.wget-hsts
 
 USER $NB_UID
